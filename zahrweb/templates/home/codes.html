@@ -1,0 +1,61 @@
+<!-- @format -->
+
+from django.shortcuts import render from .models import News def index(request):
+news = News.objects.order_by('-date')[:3] context = {'news': news} return
+render(request, 'news/index.html', context) def detail(request, news_id): news =
+News.objects.get(pk=news_id) context = {'news': news} return render(request,
+'news/detail.html', context) Sure, I'd be happy to help you with that! Here is
+an example view and template code to achieve what you're looking for: views.py
+Diff Copy Insert New from django.shortcuts import render from .models import
+News def index(request): news = News.objects.order_by('-date')[:3] context =
+{'news': news} return render(request, 'news/index.html', context) def
+detail(request, news_id): news = News.objects.get(pk=news_id) context = {'news':
+news} return render(request, 'news/detail.html', context) In this example, we
+define two views: index and detail. The index view retrieves the last three news
+objects ordered by date and passes them to the index.html template. The detail
+view retrieves a specific news object based on the provided news_id parameter
+and passes it to the detail.html template. index.html Diff Copy Insert New {%
+extends 'base.html' %} {% block content %}
+<h1>Latest News</h1>
+{% for n in news %}
+<div>
+  <a href="{% url 'news:detail' n.id %}">
+    <img src="{{ n.Image.url }}" alt="{{ n.Title }}" width="200" height="200" />
+    <p>{{ n.Title }}</p>
+  </a>
+</div>
+{% endfor %} {% endblock %} In this example, we loop over each of the news
+objects that were passed to the template from the view and create a link to the
+detail view for each one. We also display the Title and Image of each news
+object. detail.html Diff Copy Insert New {% extends 'base.html' %} {% block
+content %}
+<h1>{{ news.Title }}</h1>
+<img
+  src="{{ news.Image.url }}"
+  alt="{{ news.Title }}"
+  width="400"
+  height="400" />
+<p>{{ news.Details }}</p>
+{% endblock %} In this example, we simply display the Title, Image and Details
+of the specific news object passed to the template from the view. I hope that
+helps! Let me know if you have any questions. You ok but in latest news
+templates i would like to disblay each news in single section or div Genie Sure,
+you can modify the index.html template to display each news object in a separate
+section or div. Here's an example: Diff Copy Insert New {% extends 'base.html'
+%} {% block content %}
+<h1>Latest News</h1>
+{% for n in news %}
+<div class="news">
+  <a href="{% url 'news:detail' n.id %}">
+    <img src="{{ n.Image.url }}" alt="{{ n.Title }}" width="200" height="200" />
+    <h2>{{ n.Title }}</h2>
+  </a>
+  <p>{{ n.Details }}</p>
+</div>
+{% endfor %} {% endblock %} In this modified template, we added a
+<div>
+  element with a class of news around the entire news section. Inside that div,
+  we included an image, Title, and Details for each news object. You can style
+  this however you like using CSS. I hope that helps! Let me know if you have
+  any further questions.
+</div>

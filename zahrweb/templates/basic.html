@@ -1,0 +1,234 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://kit.fontawesome.com/9f6a0ee2f8.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/9f6a0ee2f8.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/9f6a0ee2f8.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    
+    
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+
+    <title>Home</title>
+
+        <section class="headertop">
+        <nav>
+            <div class="top1">
+                <img src="images/logo1.png" alt="شعار جمعية زهر الرمان الخيرية ">
+                <label>جمعية زهر الرمان الخيرية </label>
+            </div>
+            <div class="top2">
+                <a href="index.html">الصفحة الرئيسية </a>
+                <a href="{% url 'about' %}">عن الجمعية </a>
+                <a href="{% url 'signup' %}">التسجيل</a>
+                <a href="login.html">الدخول</a>
+            </div>
+            </div>
+            <div id="icons">
+
+                <a
+                    href="https://web.facebook.com/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%B2%D9%87%D8%B1-%D8%A7%D9%84%D8%B1%D9%85%D8%A7%D9%86-%D8%A7%D9%84%D8%AE%D9%8A%D8%B1%D9%8A%D9%87-905111752899333/"><i
+                        class="fa-brands fa-facebook"></i></a>
+        
+        
+            </div>
+        </nav>
+    </section>
+</head>
+<body>
+ 
+   
+  <!-- Slideshow container -->
+<div class="slideshow-container">
+
+    <!-- Full-width images with number and caption text -->
+    <div class="mySlides fade">
+      <div class="numbertext">1 / 3</div>
+      
+      <div><p>{{ poster.details} }</p></div>
+    
+    
+    </div>
+    <div class="mySlides fade">
+      <div class="numbertext">2 / 3</div>
+      <img src="images/الكسوة الشتوية.jpg" style="width:100%">
+      <div class="text">توزيع الكسوة الشتوية على الاطفال</div>
+    </div>
+  
+    <div class="mySlides fade">
+      <div class="numbertext">3 / 3</div>
+      <img src="images/توقيع اتفاقية تعاون مع منظمة كوبي الايطالية.jpg" style="width:100%">
+      <div class="text">توقيع الاتفاقية مع منظمة كوبي الايطالية</div>
+    </div>
+
+    <div class="mySlides fade">
+        <div class="numbertext">3 / 3</div>
+        <img src="images/توقيع اتفاقية تعاون ع المركز الوطني للعدالة البيئية.jpg" style="width:100%">
+        <div class="text">توقيع الاتفاقية مع المركز الوطني للعدالة البيئية</div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 3</div>
+        <img src="images/تدريب الخياطة.jpg" style="width:100%">
+        <div class="text"> تدريب الخياطة</div>
+      </div>
+    <!-- Next and previous buttons -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    
+  </div>
+  <br>
+  
+  <!-- The dots/circles -->
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(4)"></span>
+    <span class="dot" onclick="currentSlide(5)"></span>
+
+
+  </div>
+
+    <section class="count1">
+        <div>
+            <h1>إحصائيات</h1>
+            <span>2021</span>
+        </div>
+
+    </section>
+    <section class="count">
+
+        <div class="count2">
+            <i class="fa-solid fa-people-roof"></i>
+            <h2>700</h2>
+            <label>مساعدات الأسر</label>
+
+        </div>
+        <div class="count3">
+            <i class="fa-solid fa-hands-holding-child"></i>
+            <h2>400</h2>
+            <label>منح المشاريع</label>
+
+        </div>
+        <div class="count4">
+            <i class="fa-solid fa-building-columns"></i>
+            <h2>5200</h2>
+            <label>مستفيدي التعليم غير الرسمي</label>
+
+        </div>
+        <div class="count5">
+            <i class="fa-solid fa-building-shield"></i>
+            <h2>200</h2>
+            <label>مشاريع منزلية انتاجية </label>
+
+        </div>
+    </section>
+
+    <section class="part3">
+        <a href="">
+            <div id="part3-1">
+                <i class="fa-solid fa-user"></i>
+                <label>تطوع معنا</label>
+            </div>
+        </a>
+        <a href="">
+            <div id="part3-2">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <label>تبرعات عينية</label>
+
+            </div>
+        </a>
+        <a href="">
+            <div id="part3-3">
+                <i class="fa-solid fa-lightbulb"></i>
+                <label>شاركنا بفكرتك</label>
+
+            </div>
+        </a>
+        <a href="">
+            <div id="part3-4">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                <label>دينار الخير</label>
+
+            </div>
+        </a>
+
+    </section>
+    <hr>
+    <section id="projects-label">
+        <div>
+            <label>المشاريع الفعالة </label>
+        </div>
+
+    </section>
+    <section id="projects">
+            {% for i in active_projects|slice:':3' %}
+        <section >
+
+            <div id="project2img">
+                <a><img src="{{ i.Image.url }}"
+                    alt="{{ i.Name }}">
+                <p>{{ i.Name }}</p>
+                </a>
+            </div>
+            
+        </section>
+        {% endfor %}
+    </section>
+
+    <div id="newslabel">
+        <label>آخر الأخبار</label>
+    </div>
+    <section id="news">
+        {% for n in news|slice:':3' %}
+        <div id="news1">
+            <a href="{% url 'news_detail' n.pk %}">
+                <img src="{{ n.Image.url }}"
+                    alt="{{ n.Title }}">
+                <p>{{ n.Title}}</p>
+            </a>
+        </div>
+        {% endfor %}
+
+        </div>
+
+    </section>
+
+    <script src="assest/css/java.js"></script>
+
+</body>
+ <footer class="footer">
+    
+    <ul class="social-icon">
+      <li class="social-icon__item"><a class="social-icon__link" href="https://web.facebook.com/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%B2%D9%87%D8%B1-%D8%A7%D9%84%D8%B1%D9%85%D8%A7%D9%86-%D8%A7%D9%84%D8%AE%D9%8A%D8%B1%D9%8A%D9%87-Pfo-905111752899333/">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </a></li>
+      <li class="social-icon__item"><a class="social-icon__link" href="#">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </a></li>
+      <li class="social-icon__item"><a class="social-icon__link" href="#">
+          <ion-icon name="logo-linkedin"></ion-icon>
+        </a></li>
+      <li class="social-icon__item"><a class="social-icon__link" href="#">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </a></li>
+    </ul>
+    <ul class="menu">
+      <li class="menu__item"><a class="menu__link" href="Home.html">الصفحة الرئيسية</a></li>
+      <li class="menu__item"><a class="menu__link" href="about.html">عن الجمعية </a></li>
+      <li class="menu__item"><a class="menu__link" href="sign up.html">التسجيل </a></li>
+      <li class="menu__item"><a class="menu__link" href="login.html">الدخول </a></li>
+      <li class="menu__item"><a class="menu__link" href="m.freewan@outlook.sa">تواصل معنا </a></li>
+
+    </ul>
+    <p>&copy;2022 Mohammed Freewan | All Rights Reserved</p>
+  </footer>
+</html>

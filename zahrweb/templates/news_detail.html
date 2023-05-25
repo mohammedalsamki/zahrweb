@@ -1,0 +1,10 @@
+<!-- @format -->
+{% block content %}
+<h1>{{ news.Title }}</h1>
+<img
+  src="{{ news.Image.url }}"
+  alt="{{ news.Title }}"
+  width="400"
+  height="400" />
+<p>{{ news.Details }}</p>
+{% endblock %} ```
