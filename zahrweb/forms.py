@@ -92,3 +92,25 @@ class SignUpForm(UserCreationForm):
             "password1",
             "password2",
         )
+
+
+from .models import InKindDonation, CashDonation
+
+
+class InKindDonationForm(forms.ModelForm):
+    class Meta:
+        model = InKindDonation
+        fields = (
+            "Name",
+            "Email",
+            "PhoneNumber",
+            "Country",
+            "TypeOfDonation",
+            "AmountOfDonation",
+        )
+
+
+class CashDonationForm(forms.ModelForm):
+    class Meta:
+        model = CashDonation
+        fields = ("Name", "Email", "PhoneNumber", "Country", "Cash")

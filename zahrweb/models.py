@@ -7,6 +7,7 @@ from django.contrib.auth.models import (
     AbstractUser,
     PermissionsMixin,
     Permission,
+    BaseUserManager,
 )  # required to assingn user in borrower
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
@@ -15,12 +16,14 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 
-# ## create a model for the user  will contain users info
-# class CustomUser(AbstractUser, PermissionsMixin):
+## create a model for the user  will contain users info
+# class User(AbstractUser):
+#     username = models.CharField(max_length=20, unique=True)
 #     number_validator = RegexValidator(
 #         regex=r"^\d{10}$",  # Phone number format: +1234567890 or 1234567890
 #         message="Phone number must contain 10 digits",
 #     )
+
 #     MiddleName = models.EmailField(
 #         max_length=200, help_text="Enter a user middle name", null=False, blank=False
 #     )
@@ -37,21 +40,22 @@ from django.utils.translation import gettext_lazy as _
 #         blank=True,
 #         help_text="enter phone number",
 #     )  # validators should be a list
-#     UserName = models.CharField(
-#         max_length=100,
-#         help_text="Enter a user Name",
-#         null=False,
-#         blank=False,
-#         primary_key=True,
-#     )
+
 #     RegisterDate = models.DateField(null=False, blank=False)
 #     FamilyNumbers = models.IntegerField(
 #         help_text="number of family numbers ", default=0
 #     )
 #     NAF = models.BooleanField(default=False)
+#     REQUIRED_FIELDS = [
+#         "email",
+#         "MiddleName ",
+#         "NationalNumber",
+#         "PhoneNumber",
+#     ]
+#     USERNAME_FIELD = "username"
 
 #     def __str__(self):
-#         return self.UserName
+#         return self.NationalNumber
 
 
 ## Create a model for cash donation information
@@ -134,8 +138,8 @@ class poster(models.Model):
 # create a model that contain number of achivment in the year
 
 
-class NumberOfAchivment(models.Model):
-    Test = models.IntegerField(default=0, blank=True)
+class Achivment(models.Model):
+    Test = models.CharField(default=0, blank=True)
     FamilyAidNumber = models.IntegerField(default=0, help_text="Number of family aids ")
     ProjectsGrants = models.IntegerField(
         default=0, help_text="number of pojects grants"

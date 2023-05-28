@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
 from django.contrib import admin
@@ -9,14 +11,12 @@ from .models import (
     Volunteer,
     Events,
     poster,
-    NumberOfAchivment,
+    Achivment,
     ExistingProjects,
     About,
 )
 
 # Register your models here.
-
-# Register the Admin classes for Book using the decorator
 
 
 class NewsAdmin(admin.ModelAdmin):
@@ -62,7 +62,7 @@ class NumberOfAchivmentAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(Volunteer, VolunteersAdmin)
+# admin.site.register(Volunteer, VolunteersAdmin)
 admin.site.register(ExistingProjects, ExistingProjectsAdmin)
 admin.site.register(InKindDonation, InKindDonationAdmin)
 admin.site.register(CashDonation, CashDonationAdmin)
@@ -70,4 +70,4 @@ admin.site.register(Events, EventsAdmin)
 admin.site.register(poster, posterAdmin)
 admin.site.register(About, AboutAdmin)
 admin.site.register(News, NewsAdmin)
-admin.site.register(NumberOfAchivment, NumberOfAchivmentAdmin)
+admin.site.register(Achivment, NumberOfAchivmentAdmin)

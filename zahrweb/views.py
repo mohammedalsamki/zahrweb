@@ -6,7 +6,7 @@ from .models import (
     Volunteer,
     Events,
     poster,
-    NumberOfAchivment,
+    Achivment,
     ExistingProjects,
     About,
 )
@@ -28,7 +28,7 @@ from django.urls import reverse
 def index(request):
     posters = poster.objects.all().order_by("-id")[:5]
     news = News.objects.order_by("-date")[:3]
-    number_of_achivments = NumberOfAchivment.objects.all()
+    number_of_achivments = Achivment.objects.all()
     active_projects = ExistingProjects.objects.order_by("-start_date")[:3]
     about = About.objects.all()
 
@@ -93,3 +93,30 @@ def signup(request):
         return redirect("index")
     context = {"form": form}
     return render(request, "signup.html", context)
+
+
+from .forms import InKindDonationForm, CashDonationForm
+
+
+def in_kind_donation(request):
+    if request.method == "POST":
+        form = InKindDonationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # You can add a success message here
+            return redirect("index")  # Replace `home` with your desired URL name
+    else:
+        form = InKindDonationForm()
+    return render(request, "in_kind_donation.html", {"form": form})
+
+
+def Cash_donation(request):
+    if request.method == "POST":
+        form = CashDonationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # You can add a success message here
+            return redirect("index")  # Replace `home` with your desired URL name
+    else:
+        form = CashDonationForm()
+    return render(request, "cash_donation.html", {"form": form})

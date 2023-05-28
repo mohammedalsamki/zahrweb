@@ -9,6 +9,8 @@ urlpatterns = [
     path("about", views.index, name="about"),
     path("signup/", views.signup, name="signup"),
     path("news_detail/<int:pk>", views.detail, name="news_detail"),
+    path("inkinddonation/", views.in_kind_donation, name="inkinddonation"),
+    path("cashdonation/", views.Cash_donation, name="cashdonation"),
     path("accounts/", include("django.contrib.auth.urls")),
 ]
 if settings.DEBUG:
