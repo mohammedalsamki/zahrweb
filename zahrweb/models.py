@@ -11,9 +11,79 @@ from django.contrib.auth.models import (
 )  # required to assingn user in borrower
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser
+from django.db import models
+from django.conf import settings
+import os
+from django.utils import timezone
+
+
+# def get_static_path(instance, filename):
+#     return os.path.join(settings.STATIC_ROOT, filename)
+
+
+class CustomUser(AbstractUser):
+    number_validator = RegexValidator(
+        regex=r"^\d{10}$",  # Phone number format: +1234567890 or 1234567890
+        message="Phone number must contain 10 digits",
+    )
+    is_naf = models.BooleanField(default=False)
+    is_teacher = models.BooleanField(default=False)
+    mailing_address = models.CharField(max_length=200, blank=True)
+    phoneNumber = models.CharField(
+        max_length=200,
+        blank=True,
+        validators=[number_validator],
+    )
+    RegisterDate = models.DateField(null=True, blank=True)
+    FamilyNumbers = models.IntegerField(
+        help_text="number of family numbers ", default=0
+    )
+    NationalNumber = models.CharField(
+        validators=[number_validator],
+        max_length=10,
+        help_text="Enter a user National Number",
+        null=True,
+        blank=True,
+    )
+    nationality = models.CharField(max_length=50, verbose_name="Nationality")
 
 
 # Create your models here.
+
+# class User(AbstractUser):
+#     age = models.IntegerField(default=0)
+
+# from django.contrib.admin.models import LogEntry
+# from django.db import models
+# from django.utils.translation import gettext_lazy as _
+# from django.contrib.auth import get_user_model
+
+# User = get_user_model()
+
+
+# class CustomLogEntry(LogEntry):
+#     user = models.ForeignKey(
+#         User,
+#         on_delete=models.CASCADE,
+#         verbose_name=_("user"),
+#         related_name="log_entries",
+#     )
+
+#     class Meta:
+#         verbose_name = _("log entry")
+#         verbose_name_plural = _("log entries")
+
+#     def __str__(self):
+#         return str(self.object_repr)
+
+
+# class UserFiledsMixin:
+#     age = models.IntegerField(default=0)
+
+
+# class CustomUser(AbstractUser, UserFiledsMixin):
+#     pass
 
 
 ## create a model for the user  will contain users info
@@ -116,7 +186,7 @@ class Events(models.Model):
 
 class News(models.Model):
     Title = models.CharField(max_length=100, help_text="Title of news")
-    Image = models.ImageField(help_text="Image Poster for news ")
+    Image = models.ImageField(upload_to="static/", help_text="Image Poster for news ")
     Details = models.TextField(max_length=30000, help_text="News details")
     date = models.DateField(help_text="Date of news")
 
@@ -158,7 +228,9 @@ class Achivment(models.Model):
 
 
 class ExistingProjects(models.Model):
-    Image = models.ImageField(max_length=400, help_text="project poster image ")
+    # Image = models.ImageField(max_length=400, help_text="project poster image ")
+    Image = models.ImageField(help_text="project poster image")
+
     Name = models.CharField(max_length=100, help_text="Name of project")
     Details = models.TextField(max_length=500, help_text="project details ")
     start_date = models.DateField(help_text="project start date")
@@ -180,7 +252,7 @@ class About(models.Model):
     def __str__(self):
         """string for represinting the model object"""
 
-        return self.About
+        return str(self.About)
 
 
 #  Create a model that contains volunteering details
@@ -195,3 +267,37 @@ class Volunteer(models.Model):
         max_length=100, help_text="type or field of voulnteer"
     )
     RegisterDate = models.DateField(help_text="Date of registration")
+
+
+class Idea(models.Model):
+    number_validator = RegexValidator(
+        regex=r"^\d{10}$",  # Phone number format: +1234567890 or 1234567890
+        message="Phone number must contain 10 digits",
+    )
+
+    idea = models.TextField(help_text="enter your idea details : ")
+    name = models.CharField(max_length=100, help_text="enter your name :")
+    PhoneNumber = models.CharField(
+        validators=[number_validator],
+        max_length=10,
+        blank=True,
+        help_text="enter phone number",
+    )  # validators should be a list
+
+    def __str__(self):
+        """string for represinting the model object"""
+
+        return self.name
+
+
+class number(models.Model):
+    year = models.IntegerField(default=0)
+    home_project = models.IntegerField(default=0)
+    project_grant = models.IntegerField(default=0)
+    education_child = models.IntegerField(default=0)
+    family_aid = models.IntegerField(default=0)
+
+    def __str__(self):
+        """string for represinting the model object"""
+
+        return str(self.year)

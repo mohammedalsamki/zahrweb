@@ -30,7 +30,6 @@ def index(request):
     news = News.objects.order_by("-date")[:3]
     number_of_achivments = Achivment.objects.all()
     active_projects = ExistingProjects.objects.order_by("-start_date")[:3]
-    about = About.objects.all()
 
     context = {
         "poster_image": posters,
@@ -39,7 +38,7 @@ def index(request):
         "active_projects": active_projects,
     }
 
-    return render(request, "basic.html", context=context)
+    return render(request, "index.html", context=context)
 
 
 def detail(request, primary_key):
@@ -48,10 +47,22 @@ def detail(request, primary_key):
     return render(request, "news_detail.html", context)
 
 
+def project_detail(request, primary_key):
+    project = ExistingProjects.objects.get(pk=primary_key)
+    context = {"projects": project}
+    return render(request, "project_detail.html", context)
+
+
+def about(request):
+    abouts = About.objects.all()
+    context = {"abouts": abouts}
+    return render(request, "about.html", context)
+
+
 class NewsListView(generic.ListView):
     model = News
     news_list = "news_list"  # your own name for the list as a template variable
-    template_name = "home/index.html"  # The HTML template for this view
+    template_name = "index.html"  # The HTML template for this view
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get the context
@@ -63,7 +74,7 @@ class NewsListView(generic.ListView):
 
 class NewsDetailView(generic.DetailView):
     model = News
-    template_name = "zahrweb/news_details.html"
+    template_name = "zahrweb/news_detail.html"
 
     def news_detail_view(request, primary_key):
         try:
@@ -80,22 +91,42 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm
 
 
+# def signup(request):
+#     form = UserCreationForm(request.POST)
+#     form = SignUpForm(request.POST)
+
+#     if form.is_valid():
+#         form.save()
+#         username = form.cleaned_data.get("username")
+#         password = form.cleaned_data.get("password")
+#         user = authenticate(username=username, password=password)
+#         login(request, user)
+#         return redirect("index")
+#     context = {"form": form}
+#     return render(request, "signup.html", context)
+# views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from .forms import SignUpForm
+
+
 def signup(request):
-    form = UserCreationForm(request.POST)
-    form = SignUpForm(request.POST)
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Log the user in.
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password1")
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect("index")
+    else:
+        form = SignUpForm()
+    return render(request, "signup.html", {"form": form})
 
-    if form.is_valid():
-        form.save()
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
-        user = authenticate(username=username, password=password)
-        login(request, user)
-        return redirect("index")
-    context = {"form": form}
-    return render(request, "signup.html", context)
 
-
-from .forms import InKindDonationForm, CashDonationForm
+from .forms import InKindDonationForm, CashDonationForm, IdeaForm
 
 
 def in_kind_donation(request):
@@ -120,3 +151,15 @@ def Cash_donation(request):
     else:
         form = CashDonationForm()
     return render(request, "cash_donation.html", {"form": form})
+
+
+def Idea(request):
+    if request.method == "POST":
+        form = IdeaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # You can add a success message here
+            return redirect("index")  # Replace `home` with your desired URL name
+    else:
+        form = IdeaForm()
+    return render(request, "idea.html", {"form": form})

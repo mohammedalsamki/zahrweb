@@ -501,13 +501,25 @@
 
 /*set images of projects style */
 #projects img {
-    width: 400px;
-    height: 300px;
+    width: 441px;
+    height: 340px;
     padding-left: px;
     border-radius: 50px;
 
 }
-
+#projects p{
+        display: block;
+        padding-right: px;
+        text-align: center;
+        font-weight: bolder;
+        font-size: 33px;
+        color: #2b2b2b;
+        font-family: 'Tajawal', sans-serif;
+    
+}
+#projects a{
+    text-decoration: none;
+}
 
 
 /*-------------------------------end of projects style ------------*/
@@ -536,7 +548,7 @@
 
 
 #news div {
-    width: 30%;
+    width: 31%;
     height: 500px;
     float: right;
     margin-right: 20px;
@@ -549,16 +561,16 @@
 }
 
 #news div a img {
-    width: 400px;
-    height: 300px;
+    width: 442px;
+    height: 320px;
     border-radius: 40px;
 
 }
 
 #news div a p {
     display: block;
-    padding-top: 30px;
-    direction: rtl;
+    padding-right: px;
+    text-align: center;
     font-weight: bolder;
     font-size: 33px;
     color: #2b2b2b;
@@ -578,6 +590,9 @@
 /*--------------------------------------------end of news stylesheet ------------*/
 
 /* Add style sheet for about page that contain information of zahr alrumman */
+#information{
+    
+}
 
 #information1 {
 
@@ -593,6 +608,7 @@
     color: black;
     font-size: 20px;
     font-family: 'Times New Roman', Times, serif;
+    text-align: center;
 
 }
 
@@ -976,3 +992,29 @@ button[type=submit]:hover {
         margin-top: 0;
     }
 }
+
+.article {
+    margin: 20px ;
+    float: right;
+}
+
+.article h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.article img {
+    max-width: 100%;
+}
+
+.article p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.article p:last-child {
+    margin-top: 10px;
+    font-style: italic;
+    color: #999;
+}
+

@@ -1,0 +1,16 @@
+<!-- @format -->
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+{% block content %}
+
+<div class="inkinddonation">
+  <h1>ادخل معلوماتك فكرتك و تجنب الاسهاب في ذلك</h1>
+  <form method="post">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+{% endblock %}
