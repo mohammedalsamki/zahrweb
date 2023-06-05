@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "zahrweb",
 ]
-AUTH_USER_MODEL = "zahrweb.CustomUser"
+AUTH_USER_MODEL = "zahr_alrumman.User"
+AUTH_GROUP_MODEL = "zahr_alrumman.CustomGroup"
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

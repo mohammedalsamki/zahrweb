@@ -15,7 +15,7 @@ from .models import (
     ExistingProjects,
     About,
     number,
-    CustomUser,
+    # CustomUser,
 )
 
 # Register your models here.
@@ -80,84 +80,84 @@ admin.site.register(Achivment, NumberOfAchivmentAdmin)
 admin.site.register(number, numberadmin)
 
 
-class CustomUserAdmin(UserAdmin):
-    list_display = (
-        "username",
-        "email",
-        "first_name",
-        "last_name",
-        "is_staff",
-        "is_teacher",
-        "is_naf",
-        "mailing_address",
-        "phoneNumber",
-    )
+# class CustomUserAdmin(UserAdmin):
+#     list_display = (
+#         "username",
+#         "email",
+#         "first_name",
+#         "last_name",
+#         "is_staff",
+#         "is_teacher",
+#         "is_naf",
+#         "mailing_address",
+#         "phoneNumber",
+#     )
 
-    fieldsets = (
-        (None, {"fields": ("username", "password")}),
-        ("Personal info", {"fields": ("first_name", "last_name", "email")}),
-        (
-            "Permissions",
-            {
-                "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                )
-            },
-        ),
-        ("Important dates", {"fields": ("last_login", "date_joined")}),
-        (
-            "Additional info",
-            {
-                "fields": (
-                    "is_naf",
-                    "is_teacher",
-                    "mailing_address",
-                    "phoneNumber",
-                    "RegisterDate",
-                    "FamilyNumbers",
-                    "NationalNumber",
-                    "nationality",
-                )
-            },
-        ),
-    )
+#     fieldsets = (
+#         (None, {"fields": ("username", "password")}),
+#         ("Personal info", {"fields": ("first_name", "last_name", "email")}),
+#         (
+#             "Permissions",
+#             {
+#                 "fields": (
+#                     "is_active",
+#                     "is_staff",
+#                     "is_superuser",
+#                     "groups",
+#                     "user_permissions",
+#                 )
+#             },
+#         ),
+#         ("Important dates", {"fields": ("last_login", "date_joined")}),
+#         (
+#             "Additional info",
+#             {
+#                 "fields": (
+#                     "is_naf",
+#                     "is_teacher",
+#                     "mailing_address",
+#                     "phoneNumber",
+#                     "RegisterDate",
+#                     "FamilyNumbers",
+#                     "NationalNumber",
+#                     "nationality",
+#                 )
+#             },
+#         ),
+#     )
 
-    add_fieldsets = (
-        (None, {"fields": ("username", "password1", "password2")}),
-        ("Personal info", {"fields": ("first_name", "last_name", "email")}),
-        (
-            "Permissions",
-            {
-                "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                )
-            },
-        ),
-        ("Important dates", {"fields": ("last_login", "date_joined")}),
-        (
-            "Additional info",
-            {
-                "fields": (
-                    "is_naf",
-                    "is_teacher",
-                    "mailing_address",
-                    "phoneNumber",
-                    "RegisterDate",
-                    "FamilyNumbers",
-                    "NationalNumber",
-                    "nationality",
-                )
-            },
-        ),
-    )
+#     add_fieldsets = (
+#         (None, {"fields": ("username", "password1", "password2")}),
+#         ("Personal info", {"fields": ("first_name", "last_name", "email")}),
+#         (
+#             "Permissions",
+#             {
+#                 "fields": (
+#                     "is_active",
+#                     "is_staff",
+#                     "is_superuser",
+#                     "groups",
+#                     "user_permissions",
+#                 )
+#             },
+#         ),
+#         ("Important dates", {"fields": ("last_login", "date_joined")}),
+#         (
+#             "Additional info",
+#             {
+#                 "fields": (
+#                     "is_naf",
+#                     "is_teacher",
+#                     "mailing_address",
+#                     "phoneNumber",
+#                     "RegisterDate",
+#                     "FamilyNumbers",
+#                     "NationalNumber",
+#                     "nationality",
+#                 )
+#             },
+#         ),
+#     )
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
+# admin.site.register(CustomUser, CustomUserAdmin)

@@ -1,3 +1,4 @@
+from sqlite3 import IntegrityError
 import uuid
 from django.db import models
 from django.urls import reverse  # used to generate URLs by reversing the URL patterns
@@ -21,32 +22,137 @@ from django.utils import timezone
 # def get_static_path(instance, filename):
 #     return os.path.join(settings.STATIC_ROOT, filename)
 
+# Create a new group object
+# custom_group = Group(name="Custom Group")
+# custom_group.save()
+# from django.contrib.auth.models import Group
 
-class CustomUser(AbstractUser):
-    number_validator = RegexValidator(
-        regex=r"^\d{10}$",  # Phone number format: +1234567890 or 1234567890
-        message="Phone number must contain 10 digits",
-    )
-    is_naf = models.BooleanField(default=False)
-    is_teacher = models.BooleanField(default=False)
-    mailing_address = models.CharField(max_length=200, blank=True)
-    phoneNumber = models.CharField(
-        max_length=200,
-        blank=True,
-        validators=[number_validator],
-    )
-    RegisterDate = models.DateField(null=True, blank=True)
-    FamilyNumbers = models.IntegerField(
-        help_text="number of family numbers ", default=0
-    )
-    NationalNumber = models.CharField(
-        validators=[number_validator],
-        max_length=10,
-        help_text="Enter a user National Number",
-        null=True,
-        blank=True,
-    )
-    nationality = models.CharField(max_length=50, verbose_name="Nationality")
+# group_name = "Custom Group"
+
+# try:
+#     # Try to create a new group with this name
+#     custom_group = Group.objects.create(name=group_name)
+# except IntegrityError:
+#     # If the group name already exists, delete it first
+#     existing_group = Group.objects.get(name=group_name)
+#     existing_group.delete()
+#     custom_group = Group.objects.create(name=group_name)
+
+# Add permissions to the custom group
+# custom_group.permissions.add(
+#     Permission.objects.get(codename="add_customuser"),
+#     Permission.objects.get(codename="change_customuser"),
+#     Permission.objects.get(codename="delete_customuser"),
+# )
+
+
+# class CustomUser(AbstractUser, PermissionsMixin):
+#     # user_permissions = models.ManyToManyField(
+#     #     Permission,
+#     #     verbose_name=_("user permissions"),
+#     #     blank=True,
+#     #     related_name="user_permissions_set",
+#     #     help_text=_("Specific permissions for this user."),
+#     #     through="zahrweb_customuser_user_permissions",
+#     # )
+
+#     number_validator = RegexValidator(
+#         regex=r"^\d{10}$",  # Phone number format: +1234567890 or 1234567890
+#         message="Phone number must contain 10 digits",
+#     )
+#     is_naf = models.BooleanField(default=False)
+#     is_teacher = models.BooleanField(default=False)
+#     mailing_address = models.CharField(max_length=200, blank=True)
+#     phoneNumber = models.CharField(
+#         max_length=200,
+#         blank=True,
+#         validators=[number_validator],
+#     )
+#     RegisterDate = models.DateField(null=True, blank=True)
+#     FamilyNumbers = models.IntegerField(
+#         help_text="number of family numbers ", default=0
+#     )
+#     NationalNumber = models.CharField(
+#         validators=[number_validator],
+#         max_length=10,
+#         help_text="Enter a user National Number",
+#         null=True,
+#         blank=True,
+#     )
+#     nationality = models.CharField(max_length=50, verbose_name="Nationality")
+
+#     # fields here
+
+
+# from django.db import models
+# from django.contrib.auth.models import (
+#     AbstractBaseUser,
+#     PermissionsMixin,
+#     BaseUserManager,
+# )
+
+
+# class MyUserManager(BaseUserManager):
+#     def create_user(self, email, password=None, **extra_fields):
+#         if not email:
+#             raise ValueError("The Email field must be set")
+#         email = self.normalize_email(email)
+#         user = self.model(email=email, **extra_fields)
+#         user.set_password(password)
+#         user.save()
+#         return user
+
+#     def create_superuser(self, email, password=None, **extra_fields):
+#         extra_fields.setdefault("is_staff", True)
+#         extra_fields.setdefault("is_superuser", True)
+
+#         if extra_fields.get("is_staff") is not True:
+#             raise ValueError("Superuser must have is_staff=True.")
+#         if extra_fields.get("is_superuser") is not True:
+#             raise ValueError("Superuser must have is_superuser=True.")
+
+#         return self.create_user(email, password, **extra_fields)
+
+
+# class User(AbstractBaseUser, PermissionsMixin):
+#     email = models.EmailField(unique=True)
+#     first_name = models.CharField(max_length=30)
+#     last_name = models.CharField(max_length=30)
+#     is_active = models.BooleanField(default=True)
+#     is_staff = models.BooleanField(default=False)
+
+#     objects = MyUserManager()
+
+#     USERNAME_FIELD = "email"
+#     REQUIRED_FIELDS = ["first_name", "last_name"]
+
+
+# class CustomGroup(models.Model):
+#     name = models.CharField(max_length=80, unique=True)
+#     description = models.CharField(max_length=255, blank=True)
+#     members = models.ManyToManyField(User)
+
+#     class Meta:
+#         verbose_name = "Custom Group"
+#         verbose_name_plural = "Custom Groups"
+
+#     def __str__(self):
+#         return self.name
+
+
+# class CustomGroup(models.Model):
+#     users = models.ManyToManyField(
+#         CustomUser, through="CustomMembership", related_name="groups"
+#     )
+
+
+# class CustomMembership(models.Model):
+#     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+#     group = models.ForeignKey(CustomGroup, on_delete=models.CASCADE)
+#     date_joined = models.DateField(auto_now_add=True)
+
+# class Meta:
+#     db_table = "auth_user"  # <-- you can change me
 
 
 # Create your models here.

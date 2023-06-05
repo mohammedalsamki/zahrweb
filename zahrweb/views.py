@@ -56,6 +56,52 @@ def project_detail(request, primary_key):
 def about(request):
     abouts = About.objects.all()
     context = {"abouts": abouts}
+    return context
+
+
+def my_table(request):
+    data = [
+        {
+            "project": "مشروع مكاني",
+            "supporter": "UNICEF",
+            "audience": "-الاطفال السوريين و الاردنيين من عمر ( 0-18 ) - اليافعين ( 18-24 ) - الامهات السوريات و الاردنيات",
+            "cost": "110,000 دينار سنويا",
+        },
+        {
+            "project": "مشروع التوعية ( ACF )",
+            "supporter": "ACF",
+            "audience": "السوريين و الاردنيين من عمر ( 18-45 )",
+            "cost": "20,000 دينار سنويا",
+        },
+        {
+            "project": "مشروع ترخيص المشاريع المنزلية الصغيرة ( IRD )",
+            "supporter": "UNHCR",
+            "audience": "اصحاب المشاريع الصغيرة السوريين و الاردنيين",
+            "cost": "38,000 دينار سنويا",
+        },
+        {
+            "project": "مشروع مصنع المخللات",
+            "supporter": "USAID",
+            "audience": "المجتمع المحلي",
+            "cost": "70,000 دينار",
+        },
+        {
+            "project": "مشروع وزارة الشباب",
+            "supporter": "البنك الدولي",
+            "audience": "الشباب في مراكز الشباب في لوا بني كنانة",
+            "cost": "48,000 دينار",
+        },
+    ]
+    context = {"data": data}
+    return context
+
+
+def my_view(request):
+    abouts = about(request)
+    table = my_table(request)
+    context = {}
+    context.update(abouts)
+    context.update(table)
     return render(request, "about.html", context)
 
 
@@ -88,7 +134,8 @@ class NewsDetailView(generic.DetailView):
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm
+
+# from .forms import SignUpForm
 
 
 # def signup(request):
@@ -107,23 +154,23 @@ from .forms import SignUpForm
 # views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignUpForm
 
 
 def signup(request):
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            # Log the user in.
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password1")
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect("index")
-    else:
-        form = SignUpForm()
-    return render(request, "signup.html", {"form": form})
+    pass
+    # if request.method == "POST":
+    #     form = SignUpForm(request.POST)
+    #     if form.is_valid():
+    #         user = form.save()
+    #         # Log the user in.
+    #         username = form.cleaned_data.get("username")
+    #         password = form.cleaned_data.get("password1")
+    #         user = authenticate(username=username, password=password)
+    #         login(request, user)
+    #         return redirect("index")
+    # else:
+    #     form = SignUpForm()
+    # return render(request, "signup.html", {"form": form})
 
 
 from .forms import InKindDonationForm, CashDonationForm, IdeaForm
