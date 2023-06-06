@@ -1,25 +1,36 @@
+# Register your models here.
+# Register your models here.
 from django.contrib import admin
-from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
-# Register your models here.
-from django.contrib import admin
-from .models import (
-    InKindDonation,
-    CashDonation,
-    News,
-    Volunteer,
-    Events,
-    poster,
-    Achivment,
-    ExistingProjects,
-    About,
-    number,
-    # CustomUser,
-)
+from .models import (About, Achivment, CashDonation, Events,  # CustomUser,
+                     ExistingProjects, InKindDonation, News, User, Volunteer,
+                     number, poster)
 
-# Register your models here.
+# from django.contrib.auth.models import User
 
+
+
+class CustomUserAdmin(UserAdmin):
+    model = User
+    list_display = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active']
+    list_filter = ['is_staff', 'is_active']
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'email')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff')}),
+        # ('Important dates', {'fields': ('last_login', 'date_joined')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')}
+        ),
+    )
+    search_fields = ('username', 'email', 'first_name', 'last_name')
+    ordering = ('username',)
+
+admin.site.register(User, CustomUserAdmin)
 
 class NewsAdmin(admin.ModelAdmin):
     list_display = ("Title", "Image", "Details")

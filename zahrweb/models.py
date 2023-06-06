@@ -1,23 +1,18 @@
-from sqlite3 import IntegrityError
-import uuid
-from django.db import models
-from django.urls import reverse  # used to generate URLs by reversing the URL patterns
-from django.contrib.auth.models import (
-    User,
-    Group,
-    AbstractUser,
-    PermissionsMixin,
-    Permission,
-    BaseUserManager,
-)  # required to assingn user in borrower
-from django.core.validators import RegexValidator
-from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser
-from django.db import models
-from django.conf import settings
 import os
-from django.utils import timezone
+import uuid
+from sqlite3 import IntegrityError
 
+from django.conf import settings
+from django.contrib.auth.models import (  # required to assingn user in borrower
+    AbstractBaseUser, AbstractUser, BaseUserManager, Group, Permission,
+    PermissionsMixin, User)
+from django.core.validators import RegexValidator
+## create a model for the user  will contain users info
+from django.db import models
+from django.urls import \
+    reverse  # used to generate URLs by reversing the URL patterns
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 # def get_static_path(instance, filename):
 #     return os.path.join(settings.STATIC_ROOT, filename)
@@ -192,17 +187,60 @@ from django.utils import timezone
 #     pass
 
 
-## create a model for the user  will contain users info
+
+
+class UserManager(BaseUserManager):
+    def create_user(self, username, password=None, **extra_fields):
+        if not username:
+            raise ValueError('The Username field must be set')
+        user = self.model(username=username, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        # extra_fields.setdefault('is_superuser', True)
+        return self.create_user(username, password, **extra_fields)
+
+
+class User(AbstractBaseUser,PermissionsMixin):
+    username = models.CharField(max_length=20, unique=True)
+    email = models.EmailField(blank=True)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    phoneNumber= models.CharField(max_length=20, blank=True)
+    mailing_address = models.CharField(max_length=200, blank=True)
+    is_superuser = models.BooleanField(default=False)
+
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
+
+    objects = UserManager()
+
+    def __str__(self):
+        return self.username
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
 # class User(AbstractUser):
 #     username = models.CharField(max_length=20, unique=True)
 #     number_validator = RegexValidator(
 #         regex=r"^\d{10}$",  # Phone number format: +1234567890 or 1234567890
 #         message="Phone number must contain 10 digits",
 #     )
+#     # MiddleName = models.CharField(max_length=200, help_text="Enter a user middle name", null=False, blank=False)
 
-#     MiddleName = models.EmailField(
-#         max_length=200, help_text="Enter a user middle name", null=False, blank=False
-#     )
+#     # MiddleName = models.EmailField(
+#     #     max_length=200, help_text="Enter a user middle name", null=False, blank=False
+#     # )
 #     NationalNumber = models.CharField(
 #         validators=[number_validator],
 #         max_length=10,
@@ -224,7 +262,7 @@ from django.utils import timezone
 #     NAF = models.BooleanField(default=False)
 #     REQUIRED_FIELDS = [
 #         "email",
-#         "MiddleName ",
+#         # "MiddleName ",
 #         "NationalNumber",
 #         "PhoneNumber",
 #     ]
